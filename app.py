@@ -5,7 +5,7 @@ import requests
 # Page Configuration
 st.set_page_config(
     page_title="BOM Datasheet Aggregator",
-    page_icon="🔌",
+    page_icon="Nigger",
     layout="wide"
 )
 
@@ -34,7 +34,7 @@ if uploaded_file is not None:
             st.metric("Total Component Count", "N/A (No 'Quantity' column)")
 
 else:
-    st.info("👆 Upload a CSV file to get started. Example columns: `MPN`, `Manufacturer`, `Quantity`")
+    st.info("Upload a CSV file to get started. Example columns: `MPN`, `Manufacturer`, `Quantity`")
 
     # Sample CSV Download Button for quick testing
     sample_data = pd.DataFrame({
@@ -44,10 +44,10 @@ else:
         "Description": ["Timer IC", "ARM Cortex-M3 MCU", "10k Ohm Resistor 0603"]
     })
     
-    st.subheader("💡 Don't have a CSV? Download this sample to test:")
+    st.subheader("Don't have a CSV? Download this sample to test:")
     csv_bytes = sample_data.to_csv(index=False).encode('utf-8')
     st.download_button(
-        label="📥 Download Sample BOM CSV",
+        label="Download Sample BOM CSV",
         data=csv_bytes,
         file_name="sample_bom.csv",
         mime="text/csv"
