@@ -5,50 +5,29 @@ import requests
 # Page Configuration
 st.set_page_config(
     page_title="BOM Datasheet Aggregator",
-    page_icon="Nigger",
+    page_icon="",
     layout="wide"
 )
 
 # Header
-st.title("🔌 BOM Datasheet Aggregator")
-st.markdown("Upload your Bill of Materials (BOM) CSV to aggregate component details and datasheets.")
+st.title("BOM Datasheet Aggregator")
 
-# File Uploader
-uploaded_file = st.file_uploader("Upload BOM File (CSV)", type=["csv"])
+# Search Bar UI
+search_query = st.text_input(
+    label="Search Components",
+    placeholder="Search for a component (e.g., Resistor, Capacitor, IC)",
+)
 
-if uploaded_file is not None:
-    # Read CSV using Pandas
-    df = pd.read_csv(uploaded_file)
-    
-    st.subheader("📋 BOM Overview")
-    st.dataframe(df, use_container_width=True)
-    
-    # Simple Metrics Summary
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Total Line Items", len(df))
-    with col2:
-        if "Quantity" in df.columns:
-            st.metric("Total Component Count", int(df["Quantity"].sum()))
-        else:
-            st.metric("Total Component Count", "N/A (No 'Quantity' column)")
+#
+if st.button("Search", type="primary"):
+    if search_query.strip():
+        # Step A: Pass UI input into parser function
+        data = run_component_parser(search_query.strip())
+        # Step B: Save output in session state
+        st.session_state["results_df"] = data
+    else:
+        st.warning("Please enter a valid search term.")
 
-else:
-    st.info("Upload a CSV file to get started. Example columns: `MPN`, `Manufacturer`, `Quantity`")
-
-    # Sample CSV Download Button for quick testing
-    sample_data = pd.DataFrame({
-        "MPN": ["NE555P", "STM32F103C8T6", "RC0603FR-0710KL"],
-        "Manufacturer": ["Texas Instruments", "STMicroelectronics", "Yageo"],
-        "Quantity": [10, 5, 50],
-        "Description": ["Timer IC", "ARM Cortex-M3 MCU", "10k Ohm Resistor 0603"]
-    })
-    
-    st.subheader("Don't have a CSV? Download this sample to test:")
-    csv_bytes = sample_data.to_csv(index=False).encode('utf-8')
-    st.download_button(
-        label="Download Sample BOM CSV",
-        data=csv_bytes,
-        file_name="sample_bom.csv",
-        mime="text/csv"
-    )
+if st.session_state["results_df"] is not None:
+    # TODO: Render the component details and datasheet download links
+    pass
