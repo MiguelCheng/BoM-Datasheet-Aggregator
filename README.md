@@ -1,10 +1,10 @@
-# ⚡ BOM Datasheet & Telemetry Aggregator
+# BOM Datasheet Aggregator
 
-> Stop searching for component datasheets one by one. Drop in your Bill of Materials (BOM), and get every datasheet PDF, real-time stock status, and volume price break in seconds.
+A Python/Streamlit utility that consumes distributor REST APIs (Mouser, DigiKey, Nexar) to batch-fetch datasheets, current stock levels, and volume pricing for electronics components.
 
-## 🚀 Key Features
-* **Batch Processing:** Pass a list of 50+ MPNs (Manufacturer Part Numbers) via `.csv` or text input.
-* **Multi-Distributor API Ingestion:** Automatically fetches and normalizes raw JSON payloads from Mouser, DigiKey, and Nexar APIs.
-* **Instant PDF Archiving:** Downloads and packages all project datasheets into a single structured directory or `.zip` file.
-* **Price & Stock Optimization:** Aggregates live stock availability and tiered volume pricing across suppliers to optimize procurement costs.
-* **Local Caching:** Stores fetched component specs in a PostgreSQL database to bypass rate limits and deliver lightning-fast responses.
+## Features
+
+* **BOM Batch Processing:** Pass a list of MPNs via `.csv` or raw text to query multiple distributors at once.
+* **Datasheet Downloader:** Pulls direct PDF links and packages them into a local `.zip` or directory.
+* **Price & Stock Comparison:** Extracts tiered volume pricing to find the cheapest distributor for a build.
+* **PostgreSQL Caching:** Caches component metadata locally to reduce external API calls and handle rate limits.
